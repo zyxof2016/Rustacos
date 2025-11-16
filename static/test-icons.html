@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图标测试 - Rustacos</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-icons.css">
+    <style>
+        .icon-test {
+            font-size: 2rem;
+            margin: 1rem;
+        }
+        .btn-test {
+            margin: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>图标测试页面</h2>
+        
+        <h3>直接显示图标</h3>
+        <div>
+            <i class="bi bi-eye icon-test"></i>
+            <i class="bi bi-pencil icon-test"></i>
+            <i class="bi bi-trash icon-test"></i>
+            <i class="bi bi-plus-circle icon-test"></i>
+            <i class="bi bi-server icon-test"></i>
+            <i class="bi bi-gear icon-test"></i>
+            <i class="bi bi-folder icon-test"></i>
+        </div>
+        
+        <h3>按钮中的图标</h3>
+        <div>
+            <button class="btn btn-primary btn-test">
+                <i class="bi bi-eye"></i> 查看
+            </button>
+            <button class="btn btn-outline-primary btn-sm btn-test">
+                <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-outline-danger btn-sm btn-test">
+                <i class="bi bi-trash"></i>
+            </button>
+            <button class="btn btn-outline-success btn-sm btn-test">
+                <i class="bi bi-plus-circle"></i>
+            </button>
+        </div>
+        
+        <h3>调试信息</h3>
+        <div id="debug-info"></div>
+    </div>
+
+    <script>
+        // 检查字体是否加载
+        document.addEventListener('DOMContentLoaded', function() {
+            const debugInfo = document.getElementById('debug-info');
+            
+            // 检查CSS是否加载
+            const styleSheets = document.styleSheets;
+            let foundBootstrapIcons = false;
+            
+            for (let i = 0; i < styleSheets.length; i++) {
+                if (styleSheets[i].href && styleSheets[i].href.includes('bootstrap-icons.css')) {
+                    foundBootstrapIcons = true;
+                    debugInfo.innerHTML += '<p>✓ bootstrap-icons.css 已加载</p>';
+                    break;
+                }
+            }
+            
+            if (!foundBootstrapIcons) {
+                debugInfo.innerHTML += '<p>✗ bootstrap-icons.css 未加载</p>';
+            }
+            
+            // 检查字体文件
+            fetch('/fonts/bootstrap-icons.woff2')
+                .then(response => {
+                    if (response.ok) {
+                        debugInfo.innerHTML += '<p>✓ 字体文件可访问</p>';
+                    } else {
+                        debugInfo.innerHTML += '<p>✗ 字体文件不可访问: ' + response.status + '</p>';
+                    }
+                })
+                .catch(error => {
+                    debugInfo.innerHTML += '<p>✗ 字体文件加载错误: ' + error + '</p>';
+                });
+            
+            // 检查图标元素
+            const icons = document.querySelectorAll('.bi');
+            debugInfo.innerHTML += '<p>找到 ' + icons.length + ' 个图标元素</p>';
+            
+            // 检查计算样式
+            if (icons.length > 0) {
+                const computedStyle = window.getComputedStyle(icons[0]);
+                debugInfo.innerHTML += '<p>图标字体族: ' + computedStyle.fontFamily + '</p>';
+                debugInfo.innerHTML += '<p>图标内容: ' + computedStyle.content + '</p>';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rustacos - 简单版</title>
+    <link href="./bootstrap.min.css" rel="stylesheet">
+    <link href="./bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-hexagon"></i> Rustacos
+            </a>
+        </div>
+    </nav>
+    
+    <div class="container mt-4">
+        <h1>命名空间管理</h1>
+        <div class="card">
+            <div class="card-body">
+                <button class="btn btn-primary mb-3" onclick="loadNamespaces()">
+                    <i class="bi bi-arrow-clockwise"></i> 刷新
+                </button>
+                <div id="namespaces-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function loadNamespaces() {
+            try {
+                const response = await fetch('/nacos/v1/console/namespaces');
+                const data = await response.json();
+                
+                let html = '<table class="table"><thead><tr><th>命名空间</th><th>显示名称</th><th>描述</th><th>操作</th></tr></thead><tbody>';
+                
+                data.data.forEach(ns => {
+                    html += `<tr>
+                        <td>${ns.namespace}</td>
+                        <td>${ns.namespace_show_name}</td>
+                        <td>${ns.namespace_desc}</td>
+                        <td>
+                            ${ns.namespace !== 'public' ? 
+                                `<button class="btn btn-sm btn-danger" onclick="deleteNamespace('${ns.namespace}')">删除</button>` : 
+                                '<span class="text-muted">不可删除</span>'
+                            }
+                        </td>
+                    </tr>`;
+                });
+                
+                html += '</tbody></table>';
+                document.getElementById('namespaces-list').innerHTML = html;
+            } catch (error) {
+                document.getElementById('namespaces-list').innerHTML = '<div class="alert alert-danger">加载失败: ' + error.message + '</div>';
+            }
+        }
+        
+        async function deleteNamespace(namespace) {
+            if (confirm(`确定要删除命名空间 "${namespace}" 吗？`)) {
+                try {
+                    const response = await fetch(`/nacos/v1/console/namespaces/${namespace}`, {
+                        method: 'DELETE'
+                    });
+                    const data = await response.json();
+                    
+                    if (data.code === 200) {
+                        alert('删除成功');
+                        loadNamespaces();
+                    } else {
+                        alert('删除失败: ' + data.message);
+                    }
+                } catch (error) {
+                    alert('删除失败: ' + error.message);
+                }
+            }
+        }
+        
+        // 页面加载时自动加载数据
+        window.onload = loadNamespaces;
+    </script>
+</body>
+</html>

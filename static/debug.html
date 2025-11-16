@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Page</title>
+</head>
+<body>
+    <h1>Debug Page</h1>
+    <p>这是一个简单的调试页面，用于测试基本功能。</p>
+    <button onclick="testAPI()">测试 API</button>
+    <div id="result"></div>
+    
+    <script>
+        function testAPI() {
+            fetch('/nacos/v1/console/namespaces')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').innerHTML = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById('result').innerHTML = 'Error: ' + error;
+                });
+        }
+    </script>
+</body>
+</html>

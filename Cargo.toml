@@ -1,0 +1,88 @@
+[package]
+name = "rustacos"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "rustacos"
+path = "src/main.rs"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[[bin]]
+name = "frontend"
+path = "src/frontend/main.rs"
+
+[dependencies]
+# 共享依赖
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+uuid = { version = "1.6", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+anyhow = "1.0"
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+# 后端依赖
+tokio = { version = "1.35", features = ["rt-multi-thread", "macros", "net", "sync"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+axum = "0.7"
+tower = "0.4"
+tower-http = { version = "0.5", features = ["fs", "cors"] }
+uuid = { version = "1.6", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+anyhow = "1.0"
+dashmap = "5.5"
+clap = { version = "4.4", features = ["derive"] }
+
+# 前端依赖（仅在 wasm32 目标时编译）
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+leptos = { version = "0.6", features = ["csr"] }
+leptos_router = { version = "0.6", features = ["csr"] }
+leptos_meta = { version = "0.6", features = ["csr"] }
+wasm-bindgen = "0.2"
+js-sys = "0.3"
+web-sys = "0.3"
+console_log = "1.0"
+console_error_panic_hook = "0.1"
+serde-wasm-bindgen = "0.6"
+futures = "0.3"
+uuid = { version = "1.6", features = ["v4", "serde", "js"] }
+gloo-net = "0.5"
+gloo-timers = "0.3"
+
+[dependencies.web-sys]
+version = "0.3"
+features = [
+  "console",
+  "Document",
+  "Element",
+  "HtmlElement",
+  "Window",
+  "Response",
+  "Request",
+  "RequestInit",
+  "Headers",
+  "MessageEvent",
+  "CloseEvent",
+  "ErrorEvent",
+  "EventTarget",
+  "EventListener",
+  "Event",
+  "MouseEvent",
+  "InputEvent",
+  "KeyboardEvent",
+  "FocusEvent",
+  "UiEvent",
+  "Storage",
+]
+
+
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 'z'

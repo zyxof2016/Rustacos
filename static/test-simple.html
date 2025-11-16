@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rustacos - Nacos的Rust实现</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-icons.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="bi bi-hdd-network"></i> Rustacos
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="bi bi-speedometer2"></i> 仪表盘
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services">
+                            <i class="bi bi-server"></i> 服务管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/configs">
+                            <i class="bi bi-gear"></i> 配置管理
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/namespaces">
+                            <i class="bi bi-folder"></i> 命名空间
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2 class="page-title">
+            <i class="bi bi-speedometer2"></i> 系统仪表盘
+        </h2>
+        
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card stats-card border-left-4 border-primary">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="card-subtitle mb-2 text-muted">服务总数</h6>
+                                <h3 class="card-title mb-0">5</h3>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="bi bi-server fs-2"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stats-card border-left-4 border-success">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="card-subtitle mb-2 text-muted">实例总数</h6>
+                                <h3 class="card-title mb-0">12</h3>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="bi bi-hdd-stack fs-2"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stats-card border-left-4 border-info">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="card-subtitle mb-2 text-muted">配置总数</h6>
+                                <h3 class="card-title mb-0">8</h3>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="bi bi-gear fs-2"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card stats-card border-left-4 border-warning">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h6 class="card-subtitle mb-2 text-muted">命名空间总数</h6>
+                                <h3 class="card-title mb-0">1</h3>
+                            </div>
+                            <div class="align-self-center">
+                                <i class="bi bi-collection fs-2"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">最近服务</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info">
+                            请使用导航栏查看详细信息
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">系统状态</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group">
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>服务器状态</span>
+                                <span class="badge bg-success rounded-pill">运行中</span>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>数据存储</span>
+                                <span class="badge bg-primary rounded-pill">内存</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <div class="container">
+            <p class="mb-0">© 2024 Rustacos - Nacos的Rust实现</p>
+            <small class="text-muted">使用Leptos构建的现代Web界面</small>
+        </div>
+    </footer>
+
+    <script src="bootstrap.bundle.min.js"></script>
+</body>
+</html>
