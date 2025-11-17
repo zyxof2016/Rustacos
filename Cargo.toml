@@ -2,10 +2,23 @@
 name = "rustacos"
 version = "0.1.0"
 edition = "2021"
+default-run = "rustacos"
+
+[workspace]
+members = [
+  ".",
+  "crates/core-model",
+  "crates/core-ports",
+  "crates/core-usecase",
+  "crates/adapters-storage-memory",
+  "crates/adapters-notify-sse",
+  "crates/api-compat-nacos",
+  "crates/app-bootstrap",
+]
 
 [[bin]]
 name = "rustacos"
-path = "src/main.rs"
+path = "src/bin/rustacos.rs"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
@@ -37,6 +50,9 @@ tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 anyhow = "1.0"
 dashmap = "5.5"
 clap = { version = "4.4", features = ["derive"] }
+jsonwebtoken = "9.3"
+bcrypt = "0.15"
+app-bootstrap = { path = "crates/app-bootstrap" }
 
 # 前端依赖（仅在 wasm32 目标时编译）
 [target.'cfg(target_arch = "wasm32")'.dependencies]
@@ -53,6 +69,7 @@ futures = "0.3"
 uuid = { version = "1.6", features = ["v4", "serde", "js"] }
 gloo-net = "0.5"
 gloo-timers = "0.3"
+urlencoding = "2"
 
 [dependencies.web-sys]
 version = "0.3"
@@ -61,12 +78,14 @@ features = [
   "Document",
   "Element",
   "HtmlElement",
+  "HtmlInputElement",
   "Window",
   "Response",
   "Request",
   "RequestInit",
   "Headers",
   "MessageEvent",
+  "EventSource",
   "CloseEvent",
   "ErrorEvent",
   "EventTarget",
@@ -78,6 +97,11 @@ features = [
   "FocusEvent",
   "UiEvent",
   "Storage",
+  "File",
+  "FileList",
+  "FileReader",
+  "Blob",
+  "Url",
 ]
 
 

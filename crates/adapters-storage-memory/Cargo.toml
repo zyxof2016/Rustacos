@@ -1,0 +1,13 @@
+[package]
+name = "adapters-storage-memory"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0"
+async-trait = "0.1"
+dashmap = "5.5"
+chrono = { version = "0.4", features = ["serde"] }
+core-model = { path = "../core-model" }
+core-ports = { path = "../core-ports" }
+

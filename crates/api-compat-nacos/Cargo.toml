@@ -1,0 +1,20 @@
+[package]
+name = "api-compat-nacos"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = "0.7"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+chrono = { version = "0.4", features = ["serde"] }
+core-model = { path = "../core-model" }
+core-ports = { path = "../core-ports" }
+core-usecase = { path = "../core-usecase" }
+uuid = { version = "1.6", features = ["v4"] }
+adapters-storage-memory = { path = "../adapters-storage-memory" }
+adapters-notify-sse = { path = "../adapters-notify-sse" }
+futures = "0.3"
+async-stream = "0.3"
+tokio = { version = "1.35", features = ["sync"] }
+
